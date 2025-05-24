@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mesaj Gönder</title>
+  <style>
+    html, body {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      overflow: hidden;
+      font-family: sans-serif;
+      background-color: #1e1e1e;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      background-color: #2c2c2c;
+      padding: 5vw;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      border: 2px solid #50fa7b;
+      width: 95vw;
+      max-width: 500px;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 15px;
+      border: 2px solid #50fa7b;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      background-color: #b8f288;
+      color: #333;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      height: 30vh;
+      font-family: monospace;
+      white-space: pre-wrap;
+      text-align: left;
+      line-height: 1.5;
+    }
+
+    button {
+      padding: 10px 25px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #000;
+      background-color: #50fa7b;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #45e06d;
+    }
+
+    .success-message {
+      color: #50fa7b;
+      margin-top: 15px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Mesaj Gönder</h1>
+    <form id="messageForm" target="_blank" action="https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse" method="POST">
+      <input type="text" name="entry.678083037" placeholder="Kullanıcı adı (isteğe bağlı)">
+      <textarea name="entry.100540393" placeholder="Mesajınız..." required></textarea>
+      <button type="submit">Gönder</button>
+    </form>
+    <div id="successMessage" class="success-message">✓ Mesajınız gönderildi!</div>
+  </div>
+
+  <script>
+    document.getElementById('messageForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const form = e.target;
+      
+      // Yeni sekmede formu gönder
+      const submitWindow = window.open('', '_blank');
+      form.target = 'form-submit';
+      form.submit();
+      
+      // Animasyonlu geri bildirim
+      document.getElementById('successMessage').style.display = 'block';
+      setTimeout(() => {
+        document.getElementById('successMessage').style.opacity = '1';
+      }, 100);
+      
+      // Formu temizle (1 saniye sonra)
+      setTimeout(() => {
+        form.reset();
+      }, 1000);
+      
+      // Geri bildirimi gizle (3 saniye sonra)
+      setTimeout(() => {
+        document.getElementById('successMessage').style.opacity = '0';
+        setTimeout(() => {
+          document.getElementById('successMessage').style.display = 'none';
+        }, 300);
+      }, 3000);
+    });
+  </script>
+</body>
+</html>
